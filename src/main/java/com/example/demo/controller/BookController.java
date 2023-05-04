@@ -1,5 +1,7 @@
-package com.example.demo;
+package com.example.demo.controller;
 
+import com.example.demo.service.BookService;
+import com.example.demo.model.Book;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,11 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    @GetMapping("/get/{id}")
+    public Book getBook(@PathVariable long id){
+        return bookService.getBook(id);
+    }
+
     @PostMapping("/add")
     public Book addBook(@RequestBody Book book){
         return bookService.addBook(book);
@@ -22,10 +29,6 @@ public class BookController {
         return bookService.updateBook(book);
     }
 
-    @GetMapping("/get/{id}")
-    public Book getBook(@PathVariable long id){
-        return bookService.getBook(id);
-    }
     @DeleteMapping("/delete/{id}")
     public String deleteBook(@PathVariable long id){
         return bookService.deleteBook(id);
